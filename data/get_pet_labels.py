@@ -40,24 +40,28 @@ def get_pet_labels(image_dir):
       List. The list contains for following item:
          index 0 = pet image label (string)
     """
-    # Retrieve the filenames from the specified directory
-    filenames = listdir(image_dir)
-
-    # Initialize an empty dictionary to store results
-    results_dic = {}
-
-    # Process each filename in the directory
-    for filename in filenames:
-        # Ignore files that are not image files (e.g., system files like .DS_Store)
-        if filename[0] != ".":
-            # Convert filename to lowercase and split by underscores
-            pet_label = ''.join([word for word in filename.lower().split("_") if word.isalpha()]).strip()
-
-            # Add to results dictionary only if the filename is unique
-            if filename not in results_dic:
-                results_dic[filename] = [pet_label]
+    # Creates list of files in directory
+    in_files = listdir(image_dir)
+    
+    # Creates empty dictionary for the results (pet labels, etc.)
+    results_dic = dict()
+   
+    # Processes through each file in the directory, extracting only the words
+    # of the file that contain the pet image label
+    for idx in range(0, len(in_files), 1):
+        # Skips file if starts with . (like .DS_Store of Mac OSX) because it 
+        # isn't an pet image file
+        if in_files[idx][0] != ".":
+            # Extracts label from filename
+            pet_label = " ".join([word.lower() for word in in_files[idx].split("_") if word.isalpha()])
+            
+            # If filename doesn't already exist in dictionary add it and its
+            # pet label - otherwise print an error message because indicates 
+            # duplicate files (filenames)
+            if in_files[idx] not in results_dic:
+                results_dic[in_files[idx]] = [pet_label]
             else:
-                print(f"** Warning: Duplicate file name {filename} exists in directory.")
-
-    # Return the results dictionary
+                print("** Warning: Duplicate files exist in directory:", 
+                      in_files[idx])
+ 
     return results_dic
