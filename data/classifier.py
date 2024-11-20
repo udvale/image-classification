@@ -4,13 +4,21 @@ import torchvision.transforms as transforms
 from torch.autograd import Variable
 from torch import __version__
 
-from torchvision.models import resnet18, ResNet18_Weights
-from torchvision.models import alexnet, AlexNet_Weights
-from torchvision.models import vgg16, VGG16_Weights
+# from torchvision.models import resnet18, ResNet18_Weights
+# from torchvision.models import alexnet, AlexNet_Weights
+# from torchvision.models import vgg16, VGG16_Weights
 
-resnet18 = resnet18(weights=ResNet18_Weights.IMAGENET1K_V1)
-alexnet = alexnet(weights=AlexNet_Weights.IMAGENET1K_V1)
-vgg16 = vgg16(weights=VGG16_Weights.IMAGENET1K_V1)
+# resnet18 = resnet18(weights=ResNet18_Weights.IMAGENET1K_V1)
+# alexnet = alexnet(weights=AlexNet_Weights.IMAGENET1K_V1)
+# vgg16 = vgg16(weights=VGG16_Weights.IMAGENET1K_V1)
+
+import torchvision.models as models
+
+# Load pretrained models
+resnet18 = models.resnet18(pretrained=True)
+alexnet = models.alexnet(pretrained=True)
+vgg16 = models.vgg16(pretrained=True)
+
 
 models = {'resnet': resnet18, 'alexnet': alexnet, 'vgg': vgg16}
 
